@@ -12,3 +12,18 @@
  *   Ingredients: 4 eggs, 2 strips of bacon, 1 tsp salt/pepper
  */
 
+let myOmeletteRecipe = {};
+
+myOmeletteRecipe = {
+  title: "Omelette",
+  servingNum: 2,
+  ingredients: ["4 eggs", "2 strips of bacon", "1 tsp salt/pepper"]
+};
+console.log('Meal name:', myOmeletteRecipe.title);
+console.log('Serves:', myOmeletteRecipe.servingNum);
+
+
+console.log("Ingredients:", myOmeletteRecipe.ingredients.join(', '));
+
+  
+
