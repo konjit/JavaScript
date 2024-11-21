@@ -9,3 +9,13 @@
 
 // There are 3 different types of drinks:
 const drinkTypes = ['cola', 'lemonade', 'water'];
+
+let drinkTray = [];
+const loops = 5;
+
+while(loops < 5){
+  let drinkType = drinkTypes[Math.floor(Math.random()*3)];
+  // not completed yet 
+  loops.unshift(drinkType);
+  loops++;
+}
