@@ -11,11 +11,28 @@
 const drinkTypes = ['cola', 'lemonade', 'water'];
 
 let drinkTray = [];
-const loops = 5;
+let loops = 5;
 
-while(loops < 5){
-  let drinkType = drinkTypes[Math.floor(Math.random()*3)];
-  // not completed yet 
-  loops.unshift(drinkType);
-  loops++;
+while(loops > 0){
+  const drinkType = drinkTypes[Math.floor(Math.random()*3)];
+  const maxNumOfDrinkType = 2;
+
+  const countDrinkType = drinkTray.filter(function(drink) {
+    return drink === drinkType;
+  }).length;
+
+  if(countDrinkType === maxNumOfDrinkType){
+    continue;
+  } else{
+    drinkTray.unshift(drinkType);
+    loops--;
+  }
 }
+
+if(!drinkTray.length){
+  console.log("I didn't brought drinks.");
+}else{
+  console.log(`Hey guys I brought ${drinkTray.join(', ')}`);
+}
+
+
