@@ -3,6 +3,8 @@
 function runExperiment(sampleSize) {
   const valueCounts = [0, 0, 0, 0, 0, 0];
 
+  
+
   // TODO
   // Write a for loop that iterates `sampleSize` times (sampleSize is a number).
   // In each loop iteration:
@@ -12,6 +14,15 @@ function runExperiment(sampleSize) {
   //    value from the previous step. Use the first element of `valueCounts`
   //    for keeping a count how many times the value 1 is thrown, the second
   //    element for value 2, etc.
+
+  for(let ii = 0; ii < sampleSize; ii++){
+    let randomNumber = Math.floor(Math.random() * 6) + 1;
+    valueCounts[(randomNumber-1)]++;
+  }
+
+  // valueCounts.forEach((value, index) => {
+  //   console.log(`The value ${index+1} appeard ${value}`);
+  // });
 
   const results = [];
 
@@ -25,12 +36,20 @@ function runExperiment(sampleSize) {
   //    two decimals, e.g. '14.60'.
   // 3. Then push that string onto the `results` array.
 
+  let sum = 0;
+  valueCounts.forEach(value => { sum += value; });
+
+  for(let value of valueCounts){
+    let percentage = (value / sum) * 100;
+    results.push(percentage.toFixed(2));
+  }
+
   return results;
 }
 
 function main() {
   const sampleSizes = [100, 1000, 1000000];
-
+  //const sampleSizes = [100];
   // TODO
   // Write a for..of loop that calls the `runExperiment()` function for each
   // value of the `sampleSizes` array.
@@ -41,6 +60,12 @@ function main() {
   // [ '26.00', '17.00', '10.00', '19.00', '16.00', '12.00' ] 100
   // [ '14.60', '17.10', '19.30', '15.50', '16.70', '16.80' ] 1000
   // [ '16.71', '16.68', '16.69', '16.66', '16.67', '16.59' ] 1000000
+
+  for(let sample of sampleSizes){
+    const results = runExperiment(sample);
+    const formattedResults = `[ ${ results.map(result => `'${result}'`).join(', ') }] ${sample}`;
+    console.log(formattedResults);
+  }
 }
 
 main();
