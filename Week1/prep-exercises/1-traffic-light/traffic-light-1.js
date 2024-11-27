@@ -8,7 +8,7 @@ const trafficLight = {
 };
 
 let rotations = 0;
-while (rotations < 2) {
+do {
   const currentState = trafficLight.state;
   console.log("The traffic light is on", currentState);
 
@@ -21,17 +21,17 @@ while (rotations < 2) {
   {
     trafficLight.state =  "orange";
   }
-  if(currentState === "orange")
+  else if(currentState === "orange")
   {
     trafficLight.state = "red";
   }
-  if(currentState === "red")
+  else if(currentState === "red")
   {
     rotations += 1;
     trafficLight.state = "green";
   }
  
-}
+}while(rotations < 2) ;
 
 /**
  * The output should be:
