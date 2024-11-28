@@ -36,8 +36,7 @@ function runExperiment(sampleSize) {
   //    two decimals, e.g. '14.60'.
   // 3. Then push that string onto the `results` array.
 
-  let sum = 0;
-  valueCounts.forEach(value => { sum += value; });
+  let sum = valueCounts.reduce((accumlator, value) => accumlator + value, 0);
 
   for(let value of valueCounts){
     let percentage = (value / sum) * 100;
