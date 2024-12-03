@@ -7,11 +7,29 @@ import { modules, students, mentors, classes } from "./hyf.js";
  * It should return an array of names. So something like:
  *  ['John', 'Mary']
  */
+
+// I tried it first with forEach function and thought ahh I could use reduce
+// const possibleMentorsForModule = (moduleName) => {
+//   let mentorForModule = [];
+//   mentors.forEach(mentor => {
+//     if (mentor.canTeach.includes(moduleName)) {
+//       mentorForModule.push(mentor.name);
+//     }
+//   });
+//   return mentorForModule;
+// };
+
 const possibleMentorsForModule = (moduleName) => {
-  // TODO complete this function
+  return mentors.reduce((acc, mentor) => {
+    if (mentor.canTeach.includes(moduleName)) {
+      acc.push(mentor.name);
+    }
+    return acc;
+  }, []);
+
 };
 // You can uncomment out this line to try your function
-// console.log(possibleMentorsForModule('using-apis'));
+// console.log(possibleMentorsForModule("using-apis"));
 
 /**
  * Tjebbe wants to make it even easier for himself.
@@ -20,7 +38,14 @@ const possibleMentorsForModule = (moduleName) => {
  * It should return a single name.
  */
 const findMentorForModule = (moduleName) => {
-  // TODO complete this function
+  const result = possibleMentorsForModule(moduleName);
+  if(!result.length) return `No mentor found for module ${moduleName}`;
+
+  if(result.length === 1){
+    return result[0];
+  }
+  const randomNum = Math.floor(Math.random() * result.length)
+  return result[randomNum];
 };
 // You can uncomment out this line to try your function
 // console.log(findMentorForModule('javascript'));
