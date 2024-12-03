@@ -21,3 +21,23 @@ const passwordList = [
     { times: '1-3', letter: 'b', password: 'cdefg'},
     { times: '2-9', letter: 'c', password: 'ccccccccc'}
 ];
+
+const splitStr = input => input.split('-').map(char => Number(char));
+
+const validatePassword = passwordList => {
+    passwordList.forEach(({times, letter, password}) => {
+
+    const passwordChar = password.split('');
+    let letterCounts = passwordChar.filter(character => { return character === letter; }).length;
+   
+    const result = splitStr(times);
+    if(letterCounts < result[0] || letterCounts > result[1]){
+        console.log(`'${password}' is INVALID ${letter} is present ${letterCounts} times and should have been present at least ${result[0]} and at most ${result[1]} times`);
+       }else{
+           console.log(`'${password}' is VALID ${letter} is present ${letterCounts} times and should have been present at least ${result[0]} and at most ${result[1]} times`);
+       }
+ }); 
+};
+
+validatePassword(passwordList)
+
