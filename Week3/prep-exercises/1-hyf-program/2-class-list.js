@@ -1,5 +1,5 @@
 import { modules, students, mentors, classes } from "./hyf.js";
-
+import { mentorForModule } from "./1-find-mentors.js";
 /**
  * We would like to have a list of everyone that is currently participating in a class.
  * This means the students, but also the mentors that are currently teaching the class.
@@ -11,8 +11,22 @@ import { modules, students, mentors, classes } from "./hyf.js";
  *
  *  [{ name: 'John', role: 'student' }, { name: 'Mary', role: 'mentor' }]
  */
+
+
+const filterStudentsByClassName = className => {
+  return students.filter(student => {
+    return student.class === className && student.graduated === false})
+    .map(({name}) => ({name, role: 'student'}));
+};
+
 const getPeopleOfClass = (className) => {
-  // TODO complete this function
+  const participatingStudents = filterStudentsByClassName(className);
+
+  const specificClass = classes.find(({name}) => name === className);
+  const participatingMentors = mentorForModule(specificClass.currentModule)
+                          .map(({name}) => ({name, role:'mentor'}));
+  
+  return [...participatingStudents, ...participatingMentors];
 };
 // You can uncomment out this line to try your function
 // console.log(getPeopleOfClass('class34'));
@@ -30,7 +44,14 @@ const getPeopleOfClass = (className) => {
  *  }
  */
 const getActiveClasses = () => {
-  // TODO complete this function
+  const activeClasses = classes
+       .filter(({active}) => { return active === true })
+       .map(({name}) => ({name}));
+
+  return activeClasses.reduce((acc, activeClass) => {
+    acc[activeClass.name] = getPeopleOfClass(activeClass.name); 
+    return acc;
+  }, {});
 };
 // You can uncomment out this line to try your function
 // console.log(getActiveClasses());

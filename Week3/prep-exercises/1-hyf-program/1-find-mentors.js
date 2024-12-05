@@ -8,7 +8,7 @@ import { modules, students, mentors, classes } from "./hyf.js";
  *  ['John', 'Mary']
  */
 
-// I tried it first with forEach function and thought ahh I could use reduce
+// I tried it first with forEach and thought ahh i can use reduce
 // const possibleMentorsForModule = (moduleName) => {
 //   let mentorForModule = [];
 //   mentors.forEach(mentor => {
@@ -19,7 +19,7 @@ import { modules, students, mentors, classes } from "./hyf.js";
 //   return mentorForModule;
 // };
 
-const possibleMentorsForModule = (moduleName) => {
+ const possibleMentorsForModule = (moduleName) => {
   return mentors.reduce((acc, mentor) => {
     if (mentor.canTeach.includes(moduleName)) {
       acc.push(mentor.name);
@@ -27,6 +27,15 @@ const possibleMentorsForModule = (moduleName) => {
     return acc;
   }, []);
 
+};
+
+export const mentorForModule = (moduleName) => {
+  return mentors.reduce((acc, mentor) => {
+    if (mentor.nowTeaching === moduleName) {
+      acc.push(mentor);
+    }
+    return acc;
+  }, []);
 };
 // You can uncomment out this line to try your function
 // console.log(possibleMentorsForModule("using-apis"));
@@ -39,7 +48,7 @@ const possibleMentorsForModule = (moduleName) => {
  */
 const findMentorForModule = (moduleName) => {
   const result = possibleMentorsForModule(moduleName);
-  if(!result.length) return `No mentor found for module ${moduleName}`;
+  if( !result ) return `No mentor found for module ${moduleName}`;
 
   if(result.length === 1){
     return result[0];
