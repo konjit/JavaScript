@@ -3,6 +3,8 @@ import eurosFormatter from './euroFormatter.js';
 class Wallet {
   #name;
   #cash;
+  #dailyAllowance = 40;
+  #dayTotalWithdrawals = 0;
 
   constructor(name, cash) {
     this.#name = name;
@@ -23,8 +25,23 @@ class Wallet {
       return 0;
     }
 
+    if(this.#dayTotalWithdrawals + amount > this.#dailyAllowance){
+      console.log(`Insufficient remaining daily allowance!`);
+      return 0;
+    }
     this.#cash -= amount;
+    this.#dayTotalWithdrawals += amount;
     return amount;
+  }
+
+   setDailyAllowance(newAllowance) {
+    this.dailyAllowance = newAllowance;
+    console.log(
+      `Daily allowance set to: ${eurosFormatter.format(newAllowance)}`
+    );
+  }
+   resetDailyAllowance() {
+    this.dayTotalWithdrawals = 0;
   }
 
   transferInto(wallet, amount) {
@@ -50,6 +67,7 @@ function main() {
   const walletJane = new Wallet('Jane', 20);
 
   walletJack.transferInto(walletJoe, 50);
+  walletJack.setDailyAllowance(80);
   walletJane.transferInto(walletJoe, 25);
 
   walletJane.deposit(20);
