@@ -35,13 +35,13 @@ class Wallet {
   }
 
    setDailyAllowance(newAllowance) {
-    this.dailyAllowance = newAllowance;
+    this.#dailyAllowance = newAllowance;
     console.log(
       `Daily allowance set to: ${eurosFormatter.format(newAllowance)}`
     );
   }
    resetDailyAllowance() {
-    this.dayTotalWithdrawals = 0;
+    this.#dayTotalWithdrawals = 0;
   }
 
   transferInto(wallet, amount) {
@@ -62,11 +62,11 @@ class Wallet {
 }
 
 function main() {
-  const walletJack = new Wallet('Jack', 100);
+  const walletJack = new Wallet('Jack', 500);
   const walletJoe = new Wallet('Joe', 10);
   const walletJane = new Wallet('Jane', 20);
 
-  walletJack.transferInto(walletJoe, 50);
+  walletJack.transferInto(walletJoe, 100);
   walletJack.setDailyAllowance(80);
   walletJane.transferInto(walletJoe, 25);
 
